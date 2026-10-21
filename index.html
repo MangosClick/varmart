@@ -7,10 +7,16 @@
   <meta name="description" content="V.A.R Mart is a wholesale and retail supermarket in Puthuppariyaram, Palakkad: groceries, rice, household and personal care, with home delivery.">
   <meta name="theme-color" content="#047633">
   <link rel="icon" href="assets/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/cherry-swash-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/poppins-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
+  <script src="js/vendor/gsap-3.13.0.min.js" defer></script>
+  <script src="js/vendor/ScrollTrigger-3.13.0.min.js" defer></script>
+  <script src="js/vendor/SplitText-3.13.0.min.js" defer></script>
+  <script src="js/vendor/lenis-1.1.20.min.js" defer></script>
+  <script src="js/reviews.js" defer></script>
+  <script src="js/main.js" defer></script>
 </head>
 <body>
   <div class="cover" aria-hidden="true"></div>
@@ -91,16 +97,16 @@
     </section>
 
     <section class="slider" tabindex="0" role="button" aria-label="Show next image">
-      <div class="slide is-active has-photo" style="--bg: url('../assets/img/store/slide-aisles.jpg') center / cover no-repeat">
+      <div class="slide is-active has-photo" style="--bg: url('../assets/img/store/slide-aisles.webp') center / cover no-repeat">
         <span class="slide__caption label">Grocery aisles</span>
       </div>
-      <div class="slide has-photo" style="--bg: url('../assets/img/store/slide-rice.jpg') center / cover no-repeat">
+      <div class="slide has-photo" style="--bg: url('../assets/img/store/slide-rice.webp') center / cover no-repeat">
         <span class="slide__caption label">Rice &amp; grains</span>
       </div>
-      <div class="slide has-photo" style="--bg: url('../assets/img/store/slide-household.jpg') center / cover no-repeat">
+      <div class="slide has-photo" style="--bg: url('../assets/img/store/slide-household.webp') center / cover no-repeat">
         <span class="slide__caption label">Household &amp; cleaning</span>
       </div>
-      <div class="slide has-photo" style="--bg: url('../assets/img/store/slide-onam.jpg') center / cover no-repeat">
+      <div class="slide has-photo" style="--bg: url('../assets/img/store/slide-onam.webp') center / cover no-repeat">
         <span class="slide__caption label">Festival offers</span>
       </div>
     </section>
@@ -112,23 +118,23 @@
       </div>
       <div class="grid depts__body">
         <ul class="depts__list">
-          <li style="--img: url('../assets/img/store/dept-rice.jpg')"><a href="shop.html#rice">Rice &amp; grains</a></li>
-          <li style="--img: url('../assets/img/store/dept-staples.jpg')"><a href="shop.html#staples">Staples</a></li>
-          <li style="--img: url('../assets/img/store/dept-oils.jpg')"><a href="shop.html#oils">Cooking oils</a></li>
-          <li style="--img: url('../assets/img/store/dept-tea.jpg')"><a href="shop.html#tea">Tea &amp; coffee</a></li>
-          <li style="--img: url('../assets/img/store/dept-household.jpg')"><a href="shop.html#household">Household</a></li>
-          <li style="--img: url('../assets/img/store/dept-personal.jpg')"><a href="shop.html#personal">Personal care</a></li>
-          <li style="--img: url('../assets/img/store/dept-plastics.jpg')"><a href="shop.html#plastics">Plastics &amp; stationery</a></li>
+          <li style="--img: url('../assets/img/store/dept-rice.webp')"><a href="shop.html#rice">Rice &amp; grains</a></li>
+          <li style="--img: url('../assets/img/store/dept-staples.webp')"><a href="shop.html#staples">Staples</a></li>
+          <li style="--img: url('../assets/img/store/dept-oils.webp')"><a href="shop.html#oils">Cooking oils</a></li>
+          <li style="--img: url('../assets/img/store/dept-tea.webp')"><a href="shop.html#tea">Tea &amp; coffee</a></li>
+          <li style="--img: url('../assets/img/store/dept-household.webp')"><a href="shop.html#household">Household</a></li>
+          <li style="--img: url('../assets/img/store/dept-personal.webp')"><a href="shop.html#personal">Personal care</a></li>
+          <li style="--img: url('../assets/img/store/dept-plastics.webp')"><a href="shop.html#plastics">Plastics &amp; stationery</a></li>
         </ul>
         <div class="depts__col col-9">
           <div class="depts__media">
-            <div class="depts__frame" style="--img: url('../assets/img/store/dept-rice.jpg')"><span class="label">Rice &amp; grains</span><span class="depts__big">Matta to basmati</span><span class="label">Kuruva · Ponni · India Gate · Daawat</span></div>
-            <div class="depts__frame" style="--img: url('../assets/img/store/dept-staples.jpg')"><span class="label">Staples</span><span class="depts__big">Sugar, atta &amp; semiya</span><span class="label">Payasam and palada mixes too</span></div>
-            <div class="depts__frame" style="--img: url('../assets/img/store/dept-oils.jpg')"><span class="label">Cooking oils</span><span class="depts__big">Coconut to rice bran</span><span class="label">Swarnam coconut oil and more</span></div>
-            <div class="depts__frame" style="--img: url('../assets/img/store/dept-tea.jpg')"><span class="label">Tea &amp; coffee</span><span class="depts__big">Your morning cup</span><span class="label">AVT · Red Label · Bru · Lipton</span></div>
-            <div class="depts__frame" style="--img: url('../assets/img/store/dept-household.jpg')"><span class="label">Household</span><span class="depts__big">Clean and bright</span><span class="label">Ujala and the Jyothy Labs range</span></div>
-            <div class="depts__frame" style="--img: url('../assets/img/store/dept-personal.jpg')"><span class="label">Personal care</span><span class="depts__big">Soap to shampoo</span><span class="label">Whisper · soaps · shampoos</span></div>
-            <div class="depts__frame" style="--img: url('../assets/img/store/dept-plastics.jpg')"><span class="label">Plastics &amp; stationery</span><span class="depts__big">For home and school</span><span class="label">Plastic ware and stationery</span></div>
+            <div class="depts__frame" style="--img: url('../assets/img/store/dept-rice.webp')"><span class="label">Rice &amp; grains</span><span class="depts__big">Matta to basmati</span><span class="label">Kuruva · Ponni · India Gate · Daawat</span></div>
+            <div class="depts__frame" style="--img: url('../assets/img/store/dept-staples.webp')"><span class="label">Staples</span><span class="depts__big">Sugar, atta &amp; semiya</span><span class="label">Payasam and palada mixes too</span></div>
+            <div class="depts__frame" style="--img: url('../assets/img/store/dept-oils.webp')"><span class="label">Cooking oils</span><span class="depts__big">Coconut to rice bran</span><span class="label">Swarnam coconut oil and more</span></div>
+            <div class="depts__frame" style="--img: url('../assets/img/store/dept-tea.webp')"><span class="label">Tea &amp; coffee</span><span class="depts__big">Your morning cup</span><span class="label">AVT · Red Label · Bru · Lipton</span></div>
+            <div class="depts__frame" style="--img: url('../assets/img/store/dept-household.webp')"><span class="label">Household</span><span class="depts__big">Clean and bright</span><span class="label">Ujala and the Jyothy Labs range</span></div>
+            <div class="depts__frame" style="--img: url('../assets/img/store/dept-personal.webp')"><span class="label">Personal care</span><span class="depts__big">Soap to shampoo</span><span class="label">Whisper · soaps · shampoos</span></div>
+            <div class="depts__frame" style="--img: url('../assets/img/store/dept-plastics.webp')"><span class="label">Plastics &amp; stationery</span><span class="depts__big">For home and school</span><span class="label">Plastic ware and stationery</span></div>
           </div>
         </div>
       </div>
@@ -148,7 +154,7 @@
       <p class="large-body reveal-lines">One stop, great deals. The same counter serves families shopping for the week and traders stocking a shop, at retail or wholesale prices.</p>
       <div class="grid services__wrap">
         <p class="label span-3">What we offer</p>
-        <div class="services__photo" role="img" aria-label="Sacks of rice and grains" style="--bg: url('../assets/img/store/wholesale-sacks.jpg') center / cover no-repeat"></div>
+        <div class="services__photo" role="img" aria-label="Sacks of rice and grains" style="--bg: url('../assets/img/store/wholesale-sacks.webp') center / cover no-repeat"></div>
         <ol class="services__list col-9">
           <li><a href="shop.html"><span class="label num">01</span><span>Groceries and daily essentials</span><span aria-hidden="true">→</span></a></li>
           <li><a href="shop.html#rice"><span class="label num">02</span><span>Rice and staples, retail or bulk</span><span aria-hidden="true">→</span></a></li>
@@ -187,7 +193,7 @@
         <img src="assets/logo.png" alt="" width="800" height="331">
         <p class="label f-map__links"><a href="https://www.google.com/maps/search/?api=1&amp;query=10.8058604%2C76.6263506" target="_blank" rel="noopener">Get directions →</a><a href="https://search.google.com/local/reviews?placeid=ChIJe_MXYcRxqDsRF4IPtjK3dOM" target="_blank" rel="noopener"><span class="stars" style="--r: 4.2" aria-hidden="true">★★★★★</span>4.2 on Google</a></p>
       </div>
-      <iframe title="Map showing V.A.R Mart in Puthuppariyaram, Palakkad" src="https://www.google.com/maps?q=10.8058604,76.6263506&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <iframe title="Map showing V.A.R Mart in Puthuppariyaram, Palakkad" data-src="https://www.google.com/maps?q=10.8058604,76.6263506&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
     </div>
     <div class="col-9 f-contact">
       <p class="label kicker type">Call</p>
@@ -201,11 +207,5 @@
     <a class="label type muted col-4 f-yt" href="https://www.youtube.com/@VAR_MART" target="_blank" rel="noopener">YouTube</a>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script src="js/reviews.js"></script>
-  <script src="js/main.js"></script>
 </body>
 </html>

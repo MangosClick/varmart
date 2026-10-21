@@ -27,6 +27,7 @@ document.fonts.ready.then(() => {
   departments();
   accordions();
   footerType();
+  footerMap();
   menu();
   fixedControls();
   pageLinks();
@@ -328,6 +329,19 @@ function footerType() {
     duration: 0.01,
     stagger: 0.012,
     scrollTrigger: { trigger: 'main', start: 'bottom 40%' },
+  });
+}
+
+// Footer map: the Google embed is about 500 KB of script. The footer sits sticky behind <main>,
+// so native lazy loading counts it as on screen at once; load it a screen before it's uncovered.
+function footerMap() {
+  const frame = $('.f-map iframe[data-src]');
+  if (!frame) return;
+  ScrollTrigger.create({
+    trigger: 'main',
+    start: 'bottom 200%',
+    once: true,
+    onEnter: () => { frame.src = frame.dataset.src; },
   });
 }
 

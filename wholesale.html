@@ -7,10 +7,16 @@
   <meta name="description" content="Wholesale rice, sugar, wheat, millets and groceries from V.A.R Mart, Puthuppariyaram, Palakkad, for shops, functions and bulk buyers.">
   <meta name="theme-color" content="#047633">
   <link rel="icon" href="assets/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/cherry-swash-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/poppins-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/img/store/wholesale-sacks.webp" as="image">
   <link rel="stylesheet" href="css/styles.css">
+  <script src="js/vendor/gsap-3.13.0.min.js" defer></script>
+  <script src="js/vendor/ScrollTrigger-3.13.0.min.js" defer></script>
+  <script src="js/vendor/SplitText-3.13.0.min.js" defer></script>
+  <script src="js/vendor/lenis-1.1.20.min.js" defer></script>
+  <script src="js/main.js" defer></script>
 </head>
 <body>
   <div class="cover" aria-hidden="true"></div>
@@ -53,7 +59,7 @@
       <p class="label">Rice, sugar, wheat and groceries in bulk for shops, functions and big families.</p>
       <span class="page-hero__arrow" aria-hidden="true">↓</span>
     </section>
-    <section class="media has-photo" aria-hidden="true" style="--bg: url('../assets/img/store/wholesale-sacks.jpg') center / cover no-repeat">
+    <section class="media has-photo" aria-hidden="true" style="--bg: url('../assets/img/store/wholesale-sacks.webp') center / cover no-repeat">
       <div class="media__img"></div>
     </section>
     <section class="block grid block--plain">
@@ -129,7 +135,7 @@
         <img src="assets/logo.png" alt="" width="800" height="331">
         <p class="label f-map__links"><a href="https://www.google.com/maps/search/?api=1&amp;query=10.8058604%2C76.6263506" target="_blank" rel="noopener">Get directions →</a><a href="https://search.google.com/local/reviews?placeid=ChIJe_MXYcRxqDsRF4IPtjK3dOM" target="_blank" rel="noopener"><span class="stars" style="--r: 4.2" aria-hidden="true">★★★★★</span>4.2 on Google</a></p>
       </div>
-      <iframe title="Map showing V.A.R Mart in Puthuppariyaram, Palakkad" src="https://www.google.com/maps?q=10.8058604,76.6263506&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <iframe title="Map showing V.A.R Mart in Puthuppariyaram, Palakkad" data-src="https://www.google.com/maps?q=10.8058604,76.6263506&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
     </div>
     <div class="col-9 f-contact">
       <p class="label kicker type">Call</p>
@@ -143,10 +149,5 @@
     <a class="label type muted col-4 f-yt" href="https://www.youtube.com/@VAR_MART" target="_blank" rel="noopener">YouTube</a>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script src="js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,8 @@
+# Allowlist: only the public site is uploaded. Memory/, knowledge.md, CLAUDE.md, reuse/ and the
+# other working files stay private. A new public file at the root (robots.txt, sitemap.xml) must be added below.
+/*
+!*.html
+!assets
+!css
+!js
+!vercel.json

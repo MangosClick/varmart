@@ -7,10 +7,16 @@
   <meta name="description" content="Departments at V.A.R Mart, Palakkad: rice and grains, staples, cooking oils, tea and coffee, household, personal care, plastics and stationery.">
   <meta name="theme-color" content="#047633">
   <link rel="icon" href="assets/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/cherry-swash-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/poppins-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/img/store/shop-aisle.webp" as="image">
   <link rel="stylesheet" href="css/styles.css">
+  <script src="js/vendor/gsap-3.13.0.min.js" defer></script>
+  <script src="js/vendor/ScrollTrigger-3.13.0.min.js" defer></script>
+  <script src="js/vendor/SplitText-3.13.0.min.js" defer></script>
+  <script src="js/vendor/lenis-1.1.20.min.js" defer></script>
+  <script src="js/main.js" defer></script>
 </head>
 <body>
   <div class="cover" aria-hidden="true"></div>
@@ -53,7 +59,7 @@
       <p class="label">Rice, groceries, household and personal care: a complete supermarket, wholesale and retail.</p>
       <span class="page-hero__arrow" aria-hidden="true">↓</span>
     </section>
-    <section class="media has-photo" aria-hidden="true" style="--bg: url('../assets/img/store/shop-aisle.jpg') center / cover no-repeat">
+    <section class="media has-photo" aria-hidden="true" style="--bg: url('../assets/img/store/shop-aisle.webp') center / cover no-repeat">
       <div class="media__img"></div>
     </section>
     <section class="block grid block--plain">
@@ -65,7 +71,7 @@
 
     <section class="block grid" id="rice">
       <h3 class="h3">Rice &amp; grains</h3>
-      <img class="block__photo" src="assets/img/store/dept-rice.jpg" alt="Rice in a terracotta bowl" width="900" height="900" loading="lazy">
+      <img class="block__photo" src="assets/img/store/dept-rice.webp" alt="Rice in a terracotta bowl" width="900" height="900" loading="lazy">
       <div class="right">
         <p class="text">Rice is one of our biggest departments: Kerala varieties for everyday meals and basmati for biryani, in retail packs and bulk quantities.</p>
         <div class="rows">
@@ -85,7 +91,7 @@
 
     <section class="block grid" id="staples">
       <h3 class="h3">Staples</h3>
-      <img class="block__photo" src="assets/img/store/dept-staples.jpg" alt="Flour being sifted into a bowl" width="900" height="900" loading="lazy">
+      <img class="block__photo" src="assets/img/store/dept-staples.webp" alt="Flour being sifted into a bowl" width="900" height="900" loading="lazy">
       <div class="right">
         <p class="text">The everyday basics, plus the mixes that make festival cooking easy.</p>
         <div class="rows">
@@ -99,7 +105,7 @@
 
     <section class="block grid" id="oils">
       <h3 class="h3">Cooking oils</h3>
-      <img class="block__photo" src="assets/img/store/dept-oils.jpg" alt="Coconuts and a bottle of oil" width="900" height="900" loading="lazy">
+      <img class="block__photo" src="assets/img/store/dept-oils.webp" alt="Coconuts and a bottle of oil" width="900" height="900" loading="lazy">
       <div class="right">
         <p class="text">Coconut oil for Kerala cooking, rice bran oil and other everyday oils.</p>
         <div class="rows">
@@ -112,7 +118,7 @@
 
     <section class="block grid" id="tea">
       <h3 class="h3">Tea, coffee &amp; milk</h3>
-      <img class="block__photo" src="assets/img/store/dept-tea.jpg" alt="Clay cups of chai" width="900" height="900" loading="lazy">
+      <img class="block__photo" src="assets/img/store/dept-tea.webp" alt="Clay cups of chai" width="900" height="900" loading="lazy">
       <div class="right">
         <p class="text">Kerala’s favourite tea brands, instant coffee and milk.</p>
         <div class="rows">
@@ -125,7 +131,7 @@
 
     <section class="block grid" id="household">
       <h3 class="h3">Household &amp; cleaning</h3>
-      <img class="block__photo" src="assets/img/store/dept-household.jpg" alt="A basket of laundry" width="900" height="900" loading="lazy">
+      <img class="block__photo" src="assets/img/store/dept-household.webp" alt="A basket of laundry" width="900" height="900" loading="lazy">
       <div class="right">
         <p class="text">Laundry and cleaning products for the whole home.</p>
         <div class="rows">
@@ -137,7 +143,7 @@
 
     <section class="block grid" id="personal">
       <h3 class="h3">Personal care</h3>
-      <img class="block__photo" src="assets/img/store/dept-personal.jpg" alt="A pump bottle of soap" width="900" height="900" loading="lazy">
+      <img class="block__photo" src="assets/img/store/dept-personal.webp" alt="A pump bottle of soap" width="900" height="900" loading="lazy">
       <div class="right">
         <p class="text">Bath, hair and hygiene essentials.</p>
         <div class="rows">
@@ -149,7 +155,7 @@
 
     <section class="block grid" id="plastics">
       <h3 class="h3">Plastics &amp; stationery</h3>
-      <img class="block__photo" src="assets/img/store/dept-plastics.jpg" alt="Coloured pencils" width="900" height="900" loading="lazy">
+      <img class="block__photo" src="assets/img/store/dept-plastics.webp" alt="Coloured pencils" width="900" height="900" loading="lazy">
       <div class="right">
         <p class="text">Plastic ware for the kitchen and home, and stationery for school and office.</p>
         <div class="rows">
@@ -186,7 +192,7 @@
         <img src="assets/logo.png" alt="" width="800" height="331">
         <p class="label f-map__links"><a href="https://www.google.com/maps/search/?api=1&amp;query=10.8058604%2C76.6263506" target="_blank" rel="noopener">Get directions →</a><a href="https://search.google.com/local/reviews?placeid=ChIJe_MXYcRxqDsRF4IPtjK3dOM" target="_blank" rel="noopener"><span class="stars" style="--r: 4.2" aria-hidden="true">★★★★★</span>4.2 on Google</a></p>
       </div>
-      <iframe title="Map showing V.A.R Mart in Puthuppariyaram, Palakkad" src="https://www.google.com/maps?q=10.8058604,76.6263506&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <iframe title="Map showing V.A.R Mart in Puthuppariyaram, Palakkad" data-src="https://www.google.com/maps?q=10.8058604,76.6263506&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
     </div>
     <div class="col-9 f-contact">
       <p class="label kicker type">Call</p>
@@ -200,10 +206,5 @@
     <a class="label type muted col-4 f-yt" href="https://www.youtube.com/@VAR_MART" target="_blank" rel="noopener">YouTube</a>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script src="js/main.js"></script>
 </body>
 </html>

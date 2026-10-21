@@ -22,6 +22,8 @@ Files are in `assets/img/store/` as WebP: banners and slides 1600px wide, depart
 | dept-household.webp | Home department card + shop page, "Household" (900px square) | https://unsplash.com/photos/5TfCI4nj6B4 | Annie Spratt | Unsplash License |
 | dept-personal.webp | Home department card + shop page, "Personal care" (900px square) | https://unsplash.com/photos/NNcQPOxjJcE | shashank singh | Unsplash License |
 | dept-plastics.webp | Home department card + shop page, "Plastics & stationery" (900px square) | https://unsplash.com/photos/yf61jhXNmYo | Dee | Unsplash License |
+| offers-onam.webp | Offers page, Onam 2026 (1200x900 crop of the slide-onam photo) | https://unsplash.com/photos/b1_FWmsuXWA | Joydeep Sensarma | Unsplash License |
+| offers-vishu.webp | Offers page, Vishu 2026 (1200x900 crop) | https://unsplash.com/photos/xMRkg-AKOWA | COARSE + FINE | Unsplash License |
 
 These are stand-ins until the store's own photos are available. To replace one, save the new photo as WebP under the same name (or update the page that uses it).
 

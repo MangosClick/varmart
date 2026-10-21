@@ -34,7 +34,8 @@ document.fonts.ready.then(() => {
 });
 
 // Home intro: the logo wipes in left to right, the tagline fades up, then the overlay slides away.
-// Plays once per browser session; later visits get the green cover wipe instead.
+// Plays once per browser session; later visits get the cover instead.
+// Its pieces start hidden in the CSS, so the logo never shows before it wipes in.
 function intro() {
   const el = $('.intro');
   if (!el) return false;
@@ -47,13 +48,15 @@ function intro() {
     el.remove();
     return false;
   }
-  gsap.set('.cover', { yPercent: -100 });
+  coverOpen();
   lenis.stop();
   gsap.timeline({ defaults: { ease: 'expo.out' } })
-    .from('.intro .stripe', { scaleX: 0, transformOrigin: 'left center', duration: 1.2, ease: 'expo.inOut' })
-    .from('.intro__logo', { clipPath: 'inset(0% 100% 0% 0%)', duration: 1.4, ease: 'expo.inOut' }, 0.1)
-    .from('.intro .label', { opacity: 0, y: 12, duration: 0.8 }, '-=0.5')
-    .to(el, { yPercent: -100, duration: 1.1, ease: 'expo.inOut' }, '+=0.5')
+    .to('.intro .stripe', { scaleX: 1, duration: 1.2, ease: 'expo.inOut' })
+    .to('.intro__logo', { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4, ease: 'expo.inOut' }, 0.1)
+    .to('.intro .label', { opacity: 1, y: 0, duration: 0.8 }, '-=0.5')
+    .to(el, { yPercent: -100, duration: 1.1, ease: 'expo.inOut' }, '+=0.4')
+    // The logo lifts a little faster than the overlay, for depth
+    .to('.intro__logo, .intro .label', { y: -80, duration: 1.1, ease: 'expo.inOut' }, '<')
     .add(() => {
       el.remove();
       lenis.start();
@@ -62,11 +65,20 @@ function intro() {
   return true;
 }
 
-// Every other page load: the black cover wipes up, then the title rises in
+// Page-change cover: orange "V.A.R" comes down from the top and green "Mart" up from the bottom,
+// they meet while the next page loads, then carry on through and off the screen.
+const coverOpen = () => {
+  gsap.set('.cover__half--orange', { yPercent: 100 });
+  gsap.set('.cover__half--green', { yPercent: -100 });
+};
+
+// Every other page load: the cover parts, then the title rises in
 function pageIn() {
-  const tl = gsap.timeline();
-  tl.to('.cover', { yPercent: -100, duration: reduce ? 0 : 1, ease: 'expo.inOut' });
-  if (!reduce) tl.add(revealTitle(), '-=0.5');
+  const d = reduce ? 0 : 0.75;
+  const tl = gsap.timeline({ defaults: { duration: d, ease: 'expo.inOut' } });
+  tl.to('.cover__half--orange', { yPercent: 100 })
+    .to('.cover__half--green', { yPercent: -100 }, d * 0.08);
+  if (!reduce) tl.add(revealTitle(), '-=0.45');
 }
 
 function revealTitle() {
@@ -81,82 +93,176 @@ function revealTitle() {
   return tl;
 }
 
-// Clicking a link to another page drops the cover back down before navigating
+// Clicking a link to another page closes the cover before navigating
 function pageLinks() {
+  const pageLink = 'a[href$=".html"], a[href*=".html#"]';
   document.addEventListener('click', (e) => {
-    const a = e.target.closest('a[href$=".html"], a[href*=".html#"]');
+    const a = e.target.closest(pageLink);
     if (!a || e.metaKey || e.ctrlKey || e.shiftKey || a.target) return;
     const url = new URL(a.href);
     // Same-page anchors scroll instead
     if (url.pathname === location.pathname && url.hash) return;
     e.preventDefault();
-    gsap.fromTo('.cover', { yPercent: 100 }, {
-      yPercent: 0,
-      duration: reduce ? 0 : 0.8,
-      ease: 'expo.inOut',
-      onComplete: () => { location.href = a.href; },
-    });
+    const d = reduce ? 0 : 0.55;
+    gsap.timeline({ defaults: { duration: d, ease: 'expo.inOut' }, onComplete: () => { location.href = a.href; } })
+      .fromTo('.cover__half--orange', { yPercent: -100 }, { yPercent: 0 })
+      .fromTo('.cover__half--green', { yPercent: 100 }, { yPercent: 0 }, d * 0.08);
   });
-  // Coming back with the browser's back button restores the page with the cover down
+  // Fetch a page as soon as the pointer or a finger is on its link, so it's ready when the cover closes
+  const fetched = new Set([location.pathname]);
+  const prefetch = (e) => {
+    const a = e.target.closest?.(pageLink);
+    if (!a) return;
+    const { pathname } = new URL(a.href);
+    if (fetched.has(pathname)) return;
+    fetched.add(pathname);
+    document.head.append(Object.assign(document.createElement('link'), { rel: 'prefetch', href: pathname }));
+  };
+  document.addEventListener('pointerover', prefetch);
+  document.addEventListener('touchstart', prefetch, { passive: true });
+  document.addEventListener('focusin', prefetch);
+  // Coming back with the browser's back button restores the page with the cover closed
   addEventListener('pageshow', (e) => {
-    if (e.persisted) gsap.set('.cover', { yPercent: -100 });
+    if (e.persisted) coverOpen();
   });
 }
 
-// Hero background: rice grains drifting down, a nod to the rice counter
+// Hero background: rice grains falling at three depths, a nod to the rice counter.
+// Mostly white rice with some golden paddy and red matta. They sway as they fall, a gust sweeps
+// through every few seconds, and on desktop they part around the pointer and shift with it for depth.
 function grains() {
   const canvas = $('.grains');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
+  const hero = canvas.closest('.hero');
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
   let w = 0;
   let h = 0;
+  let dpr = 1;
   let running = false;
+  let last = 0;
   let list = [];
+  // Pointer in canvas pixels, and an eased -1..1 offset for the depth parallax
+  const pointer = { x: -1e4, y: -1e4, tx: 0, ty: 0, px: 0, py: 0 };
+
+  // One sprite per colour, drawn once: an ellipse with a soft top highlight so grains read as round
+  const sprite = (rgb, blur = 0) => {
+    const s = document.createElement('canvas');
+    s.width = 40;
+    s.height = 16;
+    const g = s.getContext('2d');
+    if (blur) g.filter = `blur(${blur}px)`;
+    g.fillStyle = `rgb(${rgb})`;
+    g.beginPath();
+    g.ellipse(20, 8, 19, 7, 0, 0, Math.PI * 2);
+    g.fill();
+    g.fillStyle = 'rgba(255, 255, 255, 0.55)';
+    g.beginPath();
+    g.ellipse(18, 5.5, 12, 2.4, 0, 0, Math.PI * 2);
+    g.fill();
+    return s;
+  };
+  const white = sprite('246, 239, 222');
+  const paddy = sprite('236, 182, 70');
+  const matta = sprite('190, 96, 60');
+  // Out-of-focus grains passing close to the lens; the blur is baked into the sprite once
+  const soft = sprite('246, 239, 222', 2.5);
+  const pick = () => {
+    const r = Math.random();
+    return r < 0.64 ? white : r < 0.84 ? paddy : matta;
+  };
 
   const make = (anyHeight) => {
-    const depth = Math.random();
+    // Far grains outnumber near ones; about 1 in 20 is a big soft grain right in front
+    const close = Math.random() < 0.05;
+    const depth = close ? 1.3 + Math.random() * 0.4 : Math.random() ** 1.3;
     return {
       x: Math.random() * w,
-      y: anyHeight ? Math.random() * h : -20,
-      len: 7 + depth * 7,
-      wid: 2.6 + depth * 2,
+      y: anyHeight ? Math.random() * h : -20 - Math.random() * 60,
+      depth,
+      len: 7 + depth * 14,
+      wid: 2.6 + depth * 4,
       angle: Math.random() * Math.PI,
-      spin: (Math.random() - 0.5) * 0.02,
-      vy: 0.25 + depth * 0.9,
-      vx: (Math.random() - 0.5) * 0.15,
-      alpha: 0.15 + depth * 0.6,
+      spin: (Math.random() - 0.5) * 0.04,
+      vy: 0.25 + depth * 1.15,
+      phase: Math.random() * Math.PI * 2,
+      sway: 0.12 + Math.random() * 0.3,
+      kx: 0, // push from the pointer, fading out
+      ky: 0,
+      alpha: close ? 0.45 : 0.3 + depth * 0.65,
+      img: close ? soft : pick(),
     };
   };
 
   const resize = () => {
-    const dpr = Math.min(devicePixelRatio || 1, 2);
-    w = canvas.clientWidth;
-    h = canvas.clientHeight;
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const count = Math.round((w * h) / 9000);
-    list = Array.from({ length: count }, () => make(true));
+    const nw = canvas.clientWidth;
+    const nh = canvas.clientHeight;
+    // Touch screens draw at 1.5x: falling grains don't need retina sharpness, and it keeps phones smooth
+    dpr = Math.min(devicePixelRatio || 1, finePointer ? 2 : 1.5);
+    canvas.width = nw * dpr;
+    canvas.height = nh * dpr;
+    // Phones resize on every address-bar show/hide; only reseed when the width really changes
+    if (nw !== w || !list.length) {
+      w = nw;
+      h = nh;
+      const count = Math.min(Math.round((w * h) / (finePointer ? 4200 : 5000)), 380);
+      list = Array.from({ length: count }, () => make(true));
+    }
+    h = nh;
     draw();
   };
 
   const draw = () => {
-    ctx.clearRect(0, 0, w, h);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (const g of list) {
-      ctx.fillStyle = `rgba(246, 239, 222, ${g.alpha})`;
-      ctx.beginPath();
-      ctx.ellipse(g.x, g.y, g.len / 2, g.wid / 2, g.angle, 0, Math.PI * 2);
-      ctx.fill();
+      const x = g.x + pointer.px * g.depth * 24;
+      const y = g.y + pointer.py * g.depth * 14;
+      const c = Math.cos(g.angle) * dpr;
+      const s = Math.sin(g.angle) * dpr;
+      ctx.setTransform(c, s, -s, c, x * dpr, y * dpr);
+      ctx.globalAlpha = g.alpha;
+      ctx.drawImage(g.img, -g.len / 2, -g.wid / 2, g.len, g.wid);
     }
+    ctx.globalAlpha = 1;
   };
 
-  const tick = () => {
+  // A gust every 8 s: wind rises and falls over 3 s
+  const gust = (sec) => {
+    const p = (sec % 8) / 3;
+    return p < 1 ? Math.sin(p * Math.PI) ** 2 : 0;
+  };
+
+  const tick = (now) => {
     if (!running) return;
+    const dt = Math.min((now - last) / 16.67 || 1, 3);
+    last = now;
+    const sec = now / 1000;
+    const wind = gust(sec) * 2.2;
+    const fade = 0.92 ** dt;
+    pointer.px += (pointer.tx - pointer.px) * 0.05 * dt;
+    pointer.py += (pointer.ty - pointer.py) * 0.05 * dt;
     for (const g of list) {
-      g.y += g.vy;
-      g.x += g.vx;
-      g.angle += g.spin;
-      if (g.y > h + 20) Object.assign(g, make(false));
+      // Grains within 130px of the pointer get pushed outwards, near ones harder
+      const dx = g.x + pointer.px * g.depth * 24 - pointer.x;
+      const dy = g.y + pointer.py * g.depth * 14 - pointer.y;
+      const d2 = dx * dx + dy * dy;
+      if (d2 < 16900 && d2 > 1) {
+        const d = Math.sqrt(d2);
+        const f = (1 - d / 130) ** 2 * (0.4 + g.depth) * 0.9;
+        g.kx += (dx / d) * f * dt;
+        g.ky += (dy / d) * f * dt;
+        g.spin += (dx > 0 ? 1 : -1) * f * 0.004;
+      }
+      g.kx *= fade;
+      g.ky *= fade;
+      g.x += (Math.sin(sec * 1.3 + g.phase) * g.sway + wind * (0.4 + g.depth) + g.kx) * dt;
+      g.y += (g.vy + g.ky) * dt;
+      g.angle += g.spin * dt;
+      g.spin *= 0.995;
+      if (g.y > h + 30) Object.assign(g, make(false));
+      if (g.x > w + 30) g.x -= w + 60;
+      if (g.x < -30) g.x += w + 60;
     }
     draw();
     requestAnimationFrame(tick);
@@ -165,11 +271,29 @@ function grains() {
   resize();
   addEventListener('resize', resize);
   if (reduce) return;
+
+  if (finePointer && hero) {
+    hero.addEventListener('pointermove', (e) => {
+      const r = canvas.getBoundingClientRect();
+      pointer.x = e.clientX - r.left;
+      pointer.y = e.clientY - r.top;
+      pointer.tx = (e.clientX / innerWidth) * 2 - 1;
+      pointer.ty = (e.clientY / innerHeight) * 2 - 1;
+    });
+    hero.addEventListener('pointerleave', () => {
+      pointer.x = pointer.y = -1e4;
+      pointer.tx = pointer.ty = 0;
+    });
+  }
+
   // Only animate while the hero is on screen
   new IntersectionObserver(([entry]) => {
     const wasRunning = running;
     running = entry.isIntersecting;
-    if (running && !wasRunning) requestAnimationFrame(tick);
+    if (running && !wasRunning) {
+      last = performance.now();
+      requestAnimationFrame(tick);
+    }
   }).observe(canvas);
 }
 

@@ -91,6 +91,7 @@ document.querySelectorAll('.js-reviews').forEach((slot) => {
       </div>
     </div>`;
   const set = slot.querySelector('.rv-set');
-  // About 45px a second, whatever the screen size
-  slot.querySelector('.rv-track').style.setProperty('--dur', `${set.scrollWidth / 45}s`);
+  // About 45px a second, slower on phones where the cards fill the screen
+  const speed = matchMedia('(max-width: 767px)').matches ? 22 : 45;
+  slot.querySelector('.rv-track').style.setProperty('--dur', `${set.scrollWidth / speed}s`);
 });

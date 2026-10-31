@@ -1,4 +1,5 @@
 // V.A.R Mart site. Motion ported from the esrbespoke replica (Desktop/esr/site/main.js).
+// Cached for a year: after changing this file or reviews.js, bump its ?v= in all 7 pages.
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const WHATSAPP = '919496534297';
@@ -16,6 +17,7 @@ if (lenis) {
 
 document.querySelectorAll('.year').forEach((el) => { el.textContent = new Date().getFullYear(); });
 grains();
+lazyBackgrounds();
 orderForm();
 
 document.fonts.ready.then(() => {
@@ -297,6 +299,24 @@ function grains() {
   }).observe(canvas);
 }
 
+// Photos below the fold sit in --bg-lazy / --img-lazy, which no CSS rule reads, so they don't
+// download with the page. About a screen before one comes into view, the real variable is set.
+function lazyBackgrounds() {
+  const els = document.querySelectorAll('[style*="--bg-lazy"], [style*="--img-lazy"]');
+  if (!els.length) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(({ isIntersecting, target }) => {
+      if (!isIntersecting) return;
+      for (const name of ['--bg', '--img']) {
+        const value = target.style.getPropertyValue(`${name}-lazy`);
+        if (value) target.style.setProperty(name, value);
+      }
+      io.unobserve(target);
+    });
+  }, { rootMargin: '600px 0px' });
+  els.forEach((el) => io.observe(el));
+}
+
 function heroParallax() {
   if (reduce || !$('.hero')) return;
   const st = { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true };
@@ -353,6 +373,8 @@ function slider() {
   };
 
   root.addEventListener('pointerenter', (e) => {
+    // Read here rather than on load: the slides only get their photos once lazyBackgrounds() reaches them
+    setThumb();
     gsap.set(cursor, { x: e.clientX, y: e.clientY });
     gsap.to(cursor, { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'expo.out' });
   });
@@ -371,13 +393,8 @@ function slider() {
     const r = root.getBoundingClientRect();
     if (px < r.left || px > r.right || py < r.top || py > r.bottom) hide();
   }, { passive: true });
+  // The .slider__next button covers the slider, so clicks and Enter/Space both land here
   root.addEventListener('click', next);
-  root.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      next();
-    }
-  });
 
   function next() {
     if (busy) return;
@@ -403,7 +420,6 @@ function slider() {
   }
 
   gsap.set(cursor, { scale: 0.8 });
-  setThumb();
 }
 
 // Departments: the name at screen centre turns green and the card swaps to match
@@ -445,14 +461,22 @@ function accordions() {
 
 // Footer text types in letter by letter once most of the footer is uncovered.
 // The footer is sticky, so the trigger is the end of <main> sliding away.
+// Splitting ~270 letters is slow on phones, so it waits until the footer is a screen away.
 function footerType() {
   if (reduce) return;
-  const split = SplitText.create('.footer .type', { type: 'words,chars' });
-  gsap.from(split.chars, {
-    opacity: 0,
-    duration: 0.01,
-    stagger: 0.012,
-    scrollTrigger: { trigger: 'main', start: 'bottom 40%' },
+  ScrollTrigger.create({
+    trigger: 'main',
+    start: 'bottom 200%',
+    once: true,
+    onEnter: () => {
+      const split = SplitText.create('.footer .type', { type: 'words,chars' });
+      gsap.from(split.chars, {
+        opacity: 0,
+        duration: 0.01,
+        stagger: 0.012,
+        scrollTrigger: { trigger: 'main', start: 'bottom 40%' },
+      });
+    },
   });
 }
 

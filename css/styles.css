@@ -1,5 +1,6 @@
 /* V.A.R Mart site. Theme comes from the V.A.R Mart logo (orange + green blocks, swash serif,
-   spaced sans tagline). Only the motion patterns are taken from the esrbespoke replica. */
+   spaced sans tagline). Only the motion patterns are taken from the esrbespoke replica.
+   Cached for a year: after changing this file, bump ?v= on its link in all 7 pages. */
 
 /* Fonts are self-hosted (assets/fonts, from Google Fonts, SIL Open Font License) so the page
    needs no third-party connection. latin-ext carries the ₹ sign. */
@@ -17,6 +18,9 @@
 :root {
   --orange: #fc7002;
   --orange-dark: #d95f00;
+  /* Orange text needs these to stay readable: darker on beige, lighter on green (3:1 for large text) */
+  --orange-text: #c25400;
+  --orange-on-green: #ffb36b;
   --green: #047633;
   --green-deep: #035a27;
   /* Warm beige page with a deeper sand band every other section; white is kept for cards */
@@ -70,8 +74,8 @@ html.lenis, html.lenis body { height: auto; }
   letter-spacing: 0.13em;
   text-transform: uppercase;
 }
-/* The logo PNG has a white box; multiply lets the beige show through it */
-img[src$="logo.png"] { mix-blend-mode: multiply; }
+/* The logo has a white box; multiply lets the beige show through it */
+img[src$="logo.webp"] { mix-blend-mode: multiply; }
 .kicker { color: var(--green); }
 .muted { color: var(--muted); }
 .large-body {
@@ -343,12 +347,14 @@ main { position: relative; z-index: 1; background: var(--paper); }
 .facts { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--rule); }
 .facts a { display: grid; gap: 0.5rem; padding: 1.5rem 1.5rem 0.5rem 0; transition: color 300ms var(--ease); }
 .facts li + li a { padding-left: 1.5rem; border-left: 1px solid var(--rule); }
-.facts__big { font-family: var(--display); font-weight: 700; font-size: clamp(2.25rem, 3.6vw, 3.25rem); line-height: 1; color: var(--orange); }
+.facts__big { font-family: var(--display); font-weight: 700; font-size: clamp(2.25rem, 3.6vw, 3.25rem); line-height: 1; color: var(--orange-text); }
 .facts li:nth-child(even) .facts__big { color: var(--green); }
 .facts a:hover .label { color: var(--orange); }
 
 /* Slider */
-.slider { position: relative; height: 90svh; overflow: hidden; cursor: none; outline-offset: -4px; color: var(--white); }
+.slider { position: relative; height: 90svh; overflow: hidden; cursor: none; color: var(--white); }
+/* One invisible button over the whole slider, so it works with a keyboard too */
+.slider__next { position: absolute; inset: 0; z-index: 3; cursor: inherit; outline-offset: -4px; }
 .slide {
   position: absolute;
   inset: 0;
@@ -391,7 +397,7 @@ main { position: relative; z-index: 1; background: var(--paper); }
   font-weight: 700;
   font-size: clamp(2.75rem, 5.8vw, 5.5rem);
   line-height: 1.1;
-  color: #e0d1bb;
+  color: #968670;
   transition: color 500ms var(--ease);
 }
 .depts__list li.is-active a { color: var(--green); }
@@ -488,7 +494,8 @@ main { position: relative; z-index: 1; background: var(--paper); }
   mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 .rv-track { display: flex; width: max-content; animation: rv-slide var(--dur, 60s) linear infinite; }
-.rv-marquee:hover .rv-track, .rv-marquee:focus-within .rv-track { animation-play-state: paused; }
+.rv-marquee:hover .rv-track, .rv-marquee:focus-within .rv-track, .rv-marquee.is-paused .rv-track { animation-play-state: paused; }
+.rv-pause { display: block; margin: 1.25rem var(--pad) 0 auto; padding-block: 0.25rem; border-bottom: 2px solid var(--orange); }
 .rv-set { display: flex; gap: 1.25rem; padding-right: 1.25rem; align-items: stretch; }
 @keyframes rv-slide { to { transform: translateX(-50%); } }
 .rv-card {
@@ -520,7 +527,7 @@ main { position: relative; z-index: 1; background: var(--paper); }
 @media (prefers-reduced-motion: reduce) {
   .rv-marquee { overflow-x: auto; mask-image: none; }
   .rv-track { animation: none; }
-  .rv-set[aria-hidden] { display: none; }
+  .rv-set[aria-hidden], .rv-pause { display: none; }
 }
 
 /* Services (green) */
@@ -552,7 +559,7 @@ main { position: relative; z-index: 1; background: var(--paper); }
 /* Delivery call-out at the end of the green section */
 .delivery { margin-top: 5rem; row-gap: 2rem; align-items: end; }
 .delivery__big { grid-column: 1 / span 7; font-family: var(--display); font-weight: 700; font-size: clamp(2.5rem, 4.5vw, 4rem); line-height: 1; }
-.delivery__big em { font-style: normal; color: var(--orange); }
+.delivery__big em { font-style: normal; color: var(--orange-on-green); }
 .delivery__side { display: grid; gap: 1.25rem; justify-items: start; }
 
 /* ---------- Inner pages ---------- */
@@ -770,6 +777,8 @@ main > .block:nth-child(odd) { background-color: var(--cream); }
 .f-yt { grid-column: 11 / span 2; }
 .f-nav .f-order { max-width: 12.5rem; }
 .f-handle:hover, .f-yt:hover, .f-contact a:hover { color: var(--orange); }
+/* Phone numbers sit on stacked lines; the padding makes each a 24px tap target */
+.f-contact a { display: inline-block; padding-block: 0.15rem; }
 
 /* Tablet and phone: collapse the nav into the burger */
 @media (max-width: 1023px) {
@@ -824,6 +833,8 @@ main > .block:nth-child(odd) { background-color: var(--cream); }
   .page-hero > .label { grid-column: 1 / -1; }
   .page-hero__arrow { justify-self: start; }
   .media { height: 50svh; }
+  /* Pages give phones a 960px copy of the photo (preloaded in <head>) */
+  .media__img { background: var(--bg-sm, var(--bg)); }
   .block { padding-block: 2.25rem 3.5rem; row-gap: 1.5rem; }
   .block > * { grid-column: 1 / -1 !important; }
   .block:has(.block__photo) { grid-template-rows: none; }

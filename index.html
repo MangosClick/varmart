@@ -5,26 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>V.A.R Mart · Supermarket in Puthuppariyaram, Palakkad</title>
   <meta name="description" content="V.A.R Mart is a wholesale and retail supermarket in Puthuppariyaram, Palakkad: groceries, rice, household and personal care, with home delivery.">
+  <link rel="canonical" href="https://www.varmart.in/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="V.A.R Mart">
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:url" content="https://www.varmart.in/">
+  <meta property="og:title" content="V.A.R Mart · Supermarket in Puthuppariyaram, Palakkad">
+  <meta property="og:description" content="V.A.R Mart is a wholesale and retail supermarket in Puthuppariyaram, Palakkad: groceries, rice, household and personal care, with home delivery.">
+  <meta property="og:image" content="https://www.varmart.in/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="V.A.R Mart logo, Essence of Lifestyle">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#047633">
   <link rel="icon" href="assets/favicon.png">
   <link rel="preload" href="assets/fonts/cherry-swash-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/poppins-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "GroceryStore",
+    "@id": "https://www.varmart.in/#store",
+    "name": "V.A.R Mart",
+    "slogan": "Essence of Lifestyle",
+    "description": "Wholesale and retail supermarket in Puthuppariyaram, Palakkad: groceries, rice, household and personal care, with home delivery and WhatsApp orders.",
+    "url": "https://www.varmart.in/",
+    "logo": "https://www.varmart.in/assets/logo.png",
+    "image": "https://www.varmart.in/assets/og-image.jpg",
+    "telephone": "+91 91887 55297",
+    "email": "varmart2022@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Industrial Estate Road, Puthuppariyaram",
+      "addressLocality": "Palakkad",
+      "addressRegion": "Kerala",
+      "postalCode": "678731",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 10.8058604,
+      "longitude": 76.6263506
+    },
+    "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJe_MXYcRxqDsRF4IPtjK3dOM",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "opens": "09:00",
+        "closes": "20:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/v.a.r_mart/",
+      "https://www.youtube.com/@VAR_MART",
+      "https://www.justdial.com/Palakkad/VAR-Mart-Puduppariyaram/9999PX491-X491-140418223919-F4J2_BZDET"
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="css/styles.css?v=20261030">
   <script src="js/vendor/gsap-3.13.0.min.js" defer></script>
   <script src="js/vendor/ScrollTrigger-3.13.0.min.js" defer></script>
   <script src="js/vendor/SplitText-3.13.0.min.js" defer></script>
   <script src="js/vendor/lenis-1.1.20.min.js" defer></script>
-  <script src="js/reviews.js" defer></script>
-  <script src="js/main.js" defer></script>
+  <script src="js/reviews.js?v=20261030" defer></script>
+  <script src="js/main.js?v=20261030b" defer></script>
 </head>
 <body>
   <div class="cover" aria-hidden="true"><div class="cover__half cover__half--orange">V.A.R</div><div class="cover__half cover__half--green">Mart</div></div>
-  <noscript><style>.cover, .intro { display: none; }</style></noscript>
+  <noscript><style>.cover, .intro, .slider__next { display: none; } .slide.is-active { background: url('assets/img/store/slide-aisles.webp') center / cover no-repeat; } .services__photo { background: url('assets/img/store/wholesale-sacks.webp') center / cover no-repeat; }</style></noscript>
 
   <!-- Intro loader -->
   <div class="intro" aria-hidden="true">
-    <img class="intro__logo" src="assets/logo.png" alt="" width="800" height="331">
+    <img class="intro__logo" src="assets/logo.webp" alt="" width="800" height="331">
     <p class="label kicker">Your neighbourhood supermarket · Palakkad</p>
     <div class="stripe"></div>
   </div>
@@ -35,7 +96,7 @@
   </div>
 
   <header class="site-header">
-    <a class="site-header__logo" href="index.html"><img src="assets/logo.png" alt="V.A.R Mart, Essence of Lifestyle" width="800" height="331"></a>
+    <a class="site-header__logo" href="index.html"><img src="assets/logo.webp" alt="V.A.R Mart, Essence of Lifestyle" width="800" height="331"></a>
     <nav class="main-nav" aria-label="Main">
       <a href="shop.html">Shop</a>
       <a href="offers.html">Offers</a>
@@ -71,7 +132,7 @@
         <div class="hero__arc"><div class="hero__sun"></div></div>
       </div>
       <div class="hero__content grid">
-        <h1 class="hero__title">Everyday groceries,<br><em>fair prices</em></h1>
+        <h1 class="hero__title">Everyday groceries, <br><em>fair prices</em></h1>
         <p class="hero__blurb">A complete supermarket in Puthuppariyaram, Palakkad. Groceries, rice, household and personal care, sold wholesale and retail, with home delivery.</p>
         <div class="hero__cta">
           <a class="btn btn--orange" href="shop.html">Shop departments</a>
@@ -96,45 +157,46 @@
       </ul>
     </section>
 
-    <section class="slider" tabindex="0" role="button" aria-label="Show next image">
-      <div class="slide is-active has-photo" style="--bg: url('../assets/img/store/slide-aisles.webp') center / cover no-repeat">
+    <section class="slider">
+      <button class="slider__next" type="button" aria-label="Show next image"></button>
+      <div class="slide is-active has-photo" style="--bg-lazy: url('../assets/img/store/slide-aisles.webp') center / cover no-repeat">
         <span class="slide__caption label">Grocery aisles</span>
       </div>
-      <div class="slide has-photo" style="--bg: url('../assets/img/store/slide-rice.webp') center / cover no-repeat">
+      <div class="slide has-photo" style="--bg-lazy: url('../assets/img/store/slide-rice.webp') center / cover no-repeat">
         <span class="slide__caption label">Rice &amp; grains</span>
       </div>
-      <div class="slide has-photo" style="--bg: url('../assets/img/store/slide-household.webp') center / cover no-repeat">
+      <div class="slide has-photo" style="--bg-lazy: url('../assets/img/store/slide-household.webp') center / cover no-repeat">
         <span class="slide__caption label">Household &amp; cleaning</span>
       </div>
-      <div class="slide has-photo" style="--bg: url('../assets/img/store/slide-onam.webp') center / cover no-repeat">
+      <div class="slide has-photo" style="--bg-lazy: url('../assets/img/store/slide-onam.webp') center / cover no-repeat">
         <span class="slide__caption label">Festival offers</span>
       </div>
     </section>
 
     <section class="depts" id="departments">
       <div class="grid depts__head">
-        <p class="label kicker span-3">Departments</p>
+        <h2 class="label kicker span-3">Departments</h2>
         <p class="label col-9">A complete supermarket: food, household and personal care, wholesale and retail.</p>
       </div>
       <div class="grid depts__body">
         <ul class="depts__list">
-          <li style="--img: url('../assets/img/store/dept-rice.webp')"><a href="shop.html#rice">Rice &amp; grains</a></li>
-          <li style="--img: url('../assets/img/store/dept-staples.webp')"><a href="shop.html#staples">Staples</a></li>
-          <li style="--img: url('../assets/img/store/dept-oils.webp')"><a href="shop.html#oils">Cooking oils</a></li>
-          <li style="--img: url('../assets/img/store/dept-tea.webp')"><a href="shop.html#tea">Tea &amp; coffee</a></li>
-          <li style="--img: url('../assets/img/store/dept-household.webp')"><a href="shop.html#household">Household</a></li>
-          <li style="--img: url('../assets/img/store/dept-personal.webp')"><a href="shop.html#personal">Personal care</a></li>
-          <li style="--img: url('../assets/img/store/dept-plastics.webp')"><a href="shop.html#plastics">Plastics &amp; stationery</a></li>
+          <li style="--img-lazy: url('../assets/img/store/dept-rice-200.webp')"><a href="shop.html#rice">Rice &amp; grains</a></li>
+          <li style="--img-lazy: url('../assets/img/store/dept-staples-200.webp')"><a href="shop.html#staples">Staples</a></li>
+          <li style="--img-lazy: url('../assets/img/store/dept-oils-200.webp')"><a href="shop.html#oils">Cooking oils</a></li>
+          <li style="--img-lazy: url('../assets/img/store/dept-tea-200.webp')"><a href="shop.html#tea">Tea &amp; coffee</a></li>
+          <li style="--img-lazy: url('../assets/img/store/dept-household-200.webp')"><a href="shop.html#household">Household</a></li>
+          <li style="--img-lazy: url('../assets/img/store/dept-personal-200.webp')"><a href="shop.html#personal">Personal care</a></li>
+          <li style="--img-lazy: url('../assets/img/store/dept-plastics-200.webp')"><a href="shop.html#plastics">Plastics &amp; stationery</a></li>
         </ul>
         <div class="depts__col col-9">
           <div class="depts__media">
-            <div class="depts__frame" style="--img: url('../assets/img/store/dept-rice.webp')"><span class="label">Rice &amp; grains</span><span class="depts__big">Matta to basmati</span><span class="label">Kuruva · Ponni · India Gate · Daawat</span></div>
-            <div class="depts__frame" style="--img: url('../assets/img/store/dept-staples.webp')"><span class="label">Staples</span><span class="depts__big">Sugar, atta &amp; semiya</span><span class="label">Payasam and palada mixes too</span></div>
-            <div class="depts__frame" style="--img: url('../assets/img/store/dept-oils.webp')"><span class="label">Cooking oils</span><span class="depts__big">Coconut to rice bran</span><span class="label">Swarnam coconut oil and more</span></div>
-            <div class="depts__frame" style="--img: url('../assets/img/store/dept-tea.webp')"><span class="label">Tea &amp; coffee</span><span class="depts__big">Your morning cup</span><span class="label">AVT · Red Label · Bru · Lipton</span></div>
-            <div class="depts__frame" style="--img: url('../assets/img/store/dept-household.webp')"><span class="label">Household</span><span class="depts__big">Clean and bright</span><span class="label">Ujala and the Jyothy Labs range</span></div>
-            <div class="depts__frame" style="--img: url('../assets/img/store/dept-personal.webp')"><span class="label">Personal care</span><span class="depts__big">Soap to shampoo</span><span class="label">Whisper · soaps · shampoos</span></div>
-            <div class="depts__frame" style="--img: url('../assets/img/store/dept-plastics.webp')"><span class="label">Plastics &amp; stationery</span><span class="depts__big">For home and school</span><span class="label">Plastic ware and stationery</span></div>
+            <div class="depts__frame" style="--img-lazy: url('../assets/img/store/dept-rice.webp')"><span class="label">Rice &amp; grains</span><span class="depts__big">Matta to basmati</span><span class="label">Kuruva · Ponni · India Gate · Daawat</span></div>
+            <div class="depts__frame" style="--img-lazy: url('../assets/img/store/dept-staples.webp')"><span class="label">Staples</span><span class="depts__big">Sugar, atta &amp; semiya</span><span class="label">Payasam and palada mixes too</span></div>
+            <div class="depts__frame" style="--img-lazy: url('../assets/img/store/dept-oils.webp')"><span class="label">Cooking oils</span><span class="depts__big">Coconut to rice bran</span><span class="label">Swarnam coconut oil and more</span></div>
+            <div class="depts__frame" style="--img-lazy: url('../assets/img/store/dept-tea.webp')"><span class="label">Tea &amp; coffee</span><span class="depts__big">Your morning cup</span><span class="label">AVT · Red Label · Bru · Lipton</span></div>
+            <div class="depts__frame" style="--img-lazy: url('../assets/img/store/dept-household.webp')"><span class="label">Household</span><span class="depts__big">Clean and bright</span><span class="label">Ujala and the Jyothy Labs range</span></div>
+            <div class="depts__frame" style="--img-lazy: url('../assets/img/store/dept-personal.webp')"><span class="label">Personal care</span><span class="depts__big">Soap to shampoo</span><span class="label">Whisper · soaps · shampoos</span></div>
+            <div class="depts__frame" style="--img-lazy: url('../assets/img/store/dept-plastics.webp')"><span class="label">Plastics &amp; stationery</span><span class="depts__big">For home and school</span><span class="label">Plastic ware and stationery</span></div>
           </div>
         </div>
       </div>
@@ -150,11 +212,11 @@
     </section>
 
     <section class="services" id="services">
-      <p class="label">Wholesale &amp; retail</p>
+      <h2 class="label">Wholesale &amp; retail</h2>
       <p class="large-body reveal-lines">One stop, great deals. The same counter serves families shopping for the week and traders stocking a shop, at retail or wholesale prices.</p>
       <div class="grid services__wrap">
         <p class="label span-3">What we offer</p>
-        <div class="services__photo" role="img" aria-label="Sacks of rice and grains" style="--bg: url('../assets/img/store/wholesale-sacks.webp') center / cover no-repeat"></div>
+        <div class="services__photo" role="img" aria-label="Sacks of rice and grains" style="--bg-lazy: url('../assets/img/store/wholesale-sacks.webp') center / cover no-repeat"></div>
         <ol class="services__list col-9">
           <li><a href="shop.html"><span class="label num">01</span><span>Groceries and daily essentials</span><span aria-hidden="true">→</span></a></li>
           <li><a href="shop.html#rice"><span class="label num">02</span><span>Rice and staples, retail or bulk</span><span aria-hidden="true">→</span></a></li>
@@ -190,7 +252,7 @@
     </div>
     <div class="f-map">
       <div class="f-mark">
-        <img src="assets/logo.png" alt="" width="800" height="331">
+        <img src="assets/logo.webp" alt="" width="800" height="331">
         <p class="label f-map__links"><a href="https://www.google.com/maps/search/?api=1&amp;query=10.8058604%2C76.6263506" target="_blank" rel="noopener">Get directions →</a><a href="https://search.google.com/local/reviews?placeid=ChIJe_MXYcRxqDsRF4IPtjK3dOM" target="_blank" rel="noopener"><span class="stars" style="--r: 4.2" aria-hidden="true">★★★★★</span>4.2 on Google</a></p>
       </div>
       <iframe title="Map showing V.A.R Mart in Puthuppariyaram, Palakkad" data-src="https://www.google.com/maps?q=10.8058604,76.6263506&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>

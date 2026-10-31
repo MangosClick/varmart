@@ -84,12 +84,19 @@ document.querySelectorAll('.js-reviews').forEach((slot) => {
   const cards = REVIEWS.list.map(reviewCard).join('');
   slot.innerHTML = `
     ${slot.dataset.summary === 'false' ? '' : reviewSummary()}
-    <div class="rv-marquee" aria-label="Customer reviews">
+    <div class="rv-marquee" role="region" tabindex="0" aria-label="Customer reviews">
       <div class="rv-track">
         <div class="rv-set">${cards}</div>
         <div class="rv-set" aria-hidden="true">${cards}</div>
       </div>
-    </div>`;
+    </div>
+    <button class="rv-pause label" type="button">Pause reviews</button>`;
+  // Moving content needs a way to stop it: hover and keyboard focus pause it, this button is for touch
+  const marquee = slot.querySelector('.rv-marquee');
+  const pause = slot.querySelector('.rv-pause');
+  pause.addEventListener('click', () => {
+    pause.textContent = marquee.classList.toggle('is-paused') ? 'Play reviews' : 'Pause reviews';
+  });
   const set = slot.querySelector('.rv-set');
   // About 45px a second, slower on phones where the cards fill the screen
   const speed = matchMedia('(max-width: 767px)').matches ? 22 : 45;
